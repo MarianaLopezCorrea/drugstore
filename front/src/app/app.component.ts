@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MedicamentDto } from './dto/medicament.dto';
 import { ApiService } from './service/api.service';
 import { DatePipe } from '@angular/common';
-import { ToolbarModule } from 'primeng/toolbar';
+import { SalesComponent } from './sales/sales.component';
 
 @Component({
   selector: 'app-root',
@@ -18,9 +18,11 @@ export class AppComponent implements OnInit {
   selectedMedicamentId: number;
   modalVisible: boolean = false;
   medicamentDialog: boolean = false;
+  salesComponent: SalesComponent;
 
   constructor(private apiService: ApiService, private datePipe: DatePipe) {
     this.selectedMedicamentId = 0;
+    this.salesComponent = new SalesComponent(this.apiService);
   }
 
   ngOnInit() {
@@ -114,12 +116,26 @@ export class AppComponent implements OnInit {
         console.log('Precio unitario obtenido:', unitPrice);
         this.selectedMedicamentId = medicament.id; // Actualizar el medicamentId seleccionado
         this.modalVisible = true;
+        this.loadMedicaments();
+  
+        // Ejecutar la carga de medicamentos cada segundo durante 10 segundos
+        let counter = 0;
+        const interval = setInterval(() => {
+          this.loadMedicaments();
+          counter++;
+  
+          if (counter >= 10) {
+            clearInterval(interval);
+          }
+        }, 3000);
       },
       error => {
         console.log('Error al obtener el precio unitario del medicamento', error);
       }
     );
   }
+  
+  
 
   hideDialog() {
     this.medicamentDialog = false;
@@ -134,4 +150,5 @@ editProduct(medicament: MedicamentDto) {
   onCloseModal() {
     this.modalVisible = false;
   }
+
 }

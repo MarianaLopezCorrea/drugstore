@@ -1,14 +1,20 @@
 <h2>Lista de Medicamentos</h2>
-<p-table #dt  [value]="medicaments" [paginator]="true" styleClass="p-datatable-gridlines" [rows]="5" [showCurrentPageReport]="true" [tableStyle]="{ 'min-width': '50rem' }"
+<p-table #dt  [value]="medicaments" [paginator]="true" [rowHover]="true" styleClass="p-datatable-gridlines" [rows]="5" [showCurrentPageReport]="true" [tableStyle]="{ 'min-width': '50rem' }"
   currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
   [rowsPerPageOptions]="[10, 25, 50]">
+
+
   <ng-template pTemplate="caption">
-    <div class="flex align-items-center justify-content-between">
-      Medicaments
-      <p-button icon="pi pi-refresh" (click)="loadMedicaments()"></p-button>
-      <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
-  </div>
-</ng-template>
+    <div class="flex align-items-center justify-content-between" style="text-align: center;">
+      <h2 class="m-0">Medicaments</h2>
+      <span class="p-input-icon-left">
+        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success" (click)="openNew()" style="margin-right: 10px;"></button>
+        <p-button icon="pi pi-refresh" (click)="loadMedicaments()"></p-button>
+      </span>
+    </div>
+  </ng-template>
+
+  
   <ng-template pTemplate="header">
     <tr>
       <th id="name" scope="col">Nombre</th>
@@ -74,3 +80,5 @@
   </ng-template>
 </p-dialog>
 
+
+<app-sales></app-sales>

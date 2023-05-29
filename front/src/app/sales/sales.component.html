@@ -1,0 +1,51 @@
+
+<p-table  [value]="sales" [paginator]="true" [rowHover]="true" styleClass="p-datatable-gridlines" [rows]="5" [showCurrentPageReport]="true" [tableStyle]="{ 'min-width': '50rem' }"
+currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+[rowsPerPageOptions]="[10, 25, 50]">
+    <ng-template pTemplate="caption">
+    <div class="flex align-items-center justify-content-between" style="text-align: center;">
+        <h2 class="m-0">Sales</h2>
+        <span class="p-input-icon-left">
+        <p-button icon="pi pi-refresh" (click)="getSale()"></p-button>
+        <p-button label="Filtrar" styleClass="p-button-outlined p-button-info" (click)="getWin()"></p-button>
+        </span>
+    </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+    <tr>
+        <th id="fechaHora" scope="col">Fecha y Hora</th>
+        <th id="medicamento" scope="col">Medicamento</th>
+        <th id="cantidad" scope="col">Cantidad</th>
+        <th id="valorUnitario" scope="col">Valor Unitario</th>
+        <th id="Preciototal" scope="col">Precio Total</th>
+    </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-sale>
+    <tr>
+        <td>{{ sale.saleDateTime}}</td>
+        <td>{{ sale.medicamentId }}</td>
+        <td>{{ sale.quantity }}</td>
+        <td>{{ sale.unitPrice }}</td>
+        <td>{{ sale.totalPrice }}</td>
+    </tr>    
+    </ng-template>
+</p-table>
+
+<p-dialog [(visible)]="dateDialog" [style]="{ height: '450px' }" header="Filter Details" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="field">
+            <label for="startDate">Fecha inicial</label>
+            <input type="text" pInputText id="startDate" [(ngModel)]="dateBetween.startDate" required autofocus />
+            <small class="p-error" *ngIf="submitted && !dateBetween.startDate">startDate is required.</small>
+        </div>
+        <div class="field">
+            <label for="endDate">Fecha final</label>
+            <input type="text" pInputText id="endDate" [(ngModel)]="dateBetween.endDate" required autofocus />
+            <small class="p-error" *ngIf="submitted && !dateBetween.endDate">endDate is required.</small>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Close" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Filter" icon="pi pi-check" class="p-button-text" (click)="getSaleByDate(dateBetween)"></button>
+    </ng-template>
+</p-dialog>

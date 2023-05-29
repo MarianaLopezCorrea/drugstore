@@ -15,11 +15,13 @@ import { TableModule } from 'primeng/table';
 import { DatePipe } from '@angular/common';
 import { SellModalComponent } from '../app/sell-modal/sell-modal.component';
 import { DialogModule } from 'primeng/dialog';
+import { SalesComponent } from './sales/sales.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SellModalComponent
+    SellModalComponent,
+    SalesComponent
   ],
   imports: [
     BrowserModule,

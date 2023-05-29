@@ -1,15 +1,15 @@
-<p-dialog header="Confirme su compra" [(visible)]="modalVisible">
+<p-dialog header="Confirme su compra" [(visible)]="modalVisible" styleClass="p-fluid">
     <ng-template pTemplate="content">
-        <div>
+        <div class="field">
             <label for="quantity">Cantidad:</label>
-            <input type="number" [(ngModel)]="unitQuantity" (input)="calculateTotal()" />
+            <input type="number" pInputText  [(ngModel)]="unitQuantity" (input)="calculateTotal()" />
         </div>
-        <div>
+        <div class="field">
             <label for="total">Total de la compra:</label>
-            <input type="number" disabled [(ngModel)]="totalPurchase" />
+            <input type="number" pInputText  disabled [(ngModel)]="totalPurchase" />
         </div>
-        </ng-template>
-        <ng-template pTemplate="footer">
+    </ng-template>
+    <ng-template pTemplate="footer">
             <p-button (click)="sellMedicament()"  icon="pi pi-check" label="Confirmar" styleClass="p-button-success"></p-button>
             <p-button (click)="onCloseModal()" icon="pi pi-times" label="Cancelar" styleClass="p-button-danger"></p-button>
     </ng-template>

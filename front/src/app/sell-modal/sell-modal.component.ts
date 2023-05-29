@@ -13,6 +13,9 @@ export class SellModalComponent {
   @Input() medicamentId!: number;
   @Input() modalVisible!: boolean;
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
+  @Output() confirmarVenta: EventEmitter<void> = new EventEmitter<void>();
+
+
 
   unitQuantity: number = 0;
   totalPurchase: number = 0;
@@ -51,5 +54,9 @@ export class SellModalComponent {
 
   onCloseModal() {
     this.closeModal.emit();
+  }
+
+  onVentaConfirmada() {
+    this.confirmarVenta.emit();
   }
 }
