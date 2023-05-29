@@ -18,6 +18,7 @@ ng-y18n.json
 *.ngstyle.js
 *.ngfactory.js
 *.ngsummary.js
+.angular
 
 # IDEs and editors
 .vscode/

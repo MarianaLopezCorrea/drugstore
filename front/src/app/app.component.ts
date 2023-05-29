@@ -24,16 +24,10 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getMedicaments();
+    this.loadMedicaments();
   }
 
-  openNew() {
-    this.medicament = {} as MedicamentDto;
-    this.submitted = false;
-    this.medicamentDialog = true;
-}
-
-  getMedicaments() {
+  loadMedicaments() {
     this.apiService.getMedicaments().subscribe(
       response => {
         this.medicaments = response;
@@ -45,6 +39,12 @@ export class AppComponent implements OnInit {
       }
     );
   }
+
+  openNew() {
+    this.medicament = {} as MedicamentDto;
+    this.submitted = false;
+    this.medicamentDialog = true;
+}
 
   formatManufacturingDates() {
     this.formattedManufacturingDates = this.medicaments.map(medicament => {
@@ -76,6 +76,7 @@ export class AppComponent implements OnInit {
           console.log('Error al actualizar el medicamento', error);
         }
       );
+      this.loadMedicaments();
     } else {
       const url = `http://localhost:8090/api/medicament`;
       this.apiService.createMedicament(url, medicament).subscribe(
@@ -86,6 +87,7 @@ export class AppComponent implements OnInit {
           console.log('Error al crear el medicamento', error);
         }
       );
+      this.loadMedicaments();
     }
   }
 
@@ -95,11 +97,13 @@ export class AppComponent implements OnInit {
     this.apiService.deleteMedicament(url).subscribe(
       response => {
         console.log('Medicamento eliminado exitosamente');
+        this.loadMedicaments();
       },
       error => {
         console.log('Error al eliminar el medicamento', error);
       }
     );
+
   }
 
   confirmSale(medicament: MedicamentDto) {

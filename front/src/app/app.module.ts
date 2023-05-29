@@ -11,7 +11,6 @@ import { PanelModule } from 'primeng/panel';
 import { CardModule } from 'primeng/card';
 import { CalendarModule } from 'primeng/calendar';
 import { InputTextModule } from 'primeng/inputtext';
-import { PersonsComponent } from './persons/persons.component';
 import { TableModule } from 'primeng/table';
 import { DatePipe } from '@angular/common';
 import { SellModalComponent } from '../app/sell-modal/sell-modal.component';
@@ -20,7 +19,6 @@ import { DialogModule } from 'primeng/dialog';
 @NgModule({
   declarations: [
     AppComponent,
-    PersonsComponent,
     SellModalComponent
   ],
   imports: [
