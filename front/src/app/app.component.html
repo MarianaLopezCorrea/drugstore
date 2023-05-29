@@ -1,0 +1,78 @@
+<h2>Lista de Medicamentos</h2>
+<p-table #dt  [value]="medicaments" [paginator]="true" styleClass="p-datatable-gridlines" [rows]="5" [showCurrentPageReport]="true" [tableStyle]="{ 'min-width': '50rem' }"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+  [rowsPerPageOptions]="[10, 25, 50]">
+  <ng-template pTemplate="caption">
+    <div class="table-header">
+        Medicaments
+
+    </div>
+    <div>
+      <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+    </div>
+</ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th id="name" scope="col">Nombre</th>
+      <th id="manufacturingDate" scope="col">Fecha de Fabricación</th>
+      <th id="expirationDate" scope="col">Fecha de Vencimiento</th>
+      <th id="quantity" scope="col">Cantidad en Stock</th>
+      <th id="unitPrice" scope="col">Valor Unitario</th>
+      <th id="actions" scope="col">Acciones</th> 
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-medicament>
+    <tr>
+      <td>{{ medicament.name }}</td>
+      <td>{{ formattedManufacturingDates[medicaments.indexOf(medicament)] }}</td>
+      <td>{{ formattedExpirationDates[medicaments.indexOf(medicament)] }}</td>
+      <td>{{ medicament.quantity }}</td>
+      <td>{{ medicament.unitPrice }}</td>
+      <td>
+        <button pButton type="button" icon="pi pi-pencil" (click)="editProduct(medicament)"></button>
+        <button pButton type="button" icon="pi pi-shopping-cart" (click)="confirmSale(medicament)"></button>
+        <button pButton type="button" icon="pi pi-trash" (click)="deleteMedicament(medicament)"></button>
+      </td>
+    </tr>    
+  </ng-template>
+</p-table>
+
+<app-sell-modal [medicamentId]="selectedMedicamentId" [modalVisible]="modalVisible" (closeModal)="onCloseModal()"></app-sell-modal>
+
+<p-dialog [(visible)]="medicamentDialog" [style]="{ width: '450px' }" header="Medicament Details" [modal]="true" styleClass="p-fluid">
+  <ng-template pTemplate="content">
+    <div class="field">
+        <label for="name">Nombre</label>
+        <input type="text" pInputText id="name" [(ngModel)]="medicament.name" required autofocus />
+        <small class="p-error" *ngIf="submitted && !medicament.name">Name is required.</small>
+    </div>
+    <div class="field">
+        <label for="manufacturingDate">Fecha de fabricación</label>
+        <input type="text" pInputText id="manufacturingDate" [(ngModel)]="medicament.manufacturingDate" required autofocus />
+        <small class="p-error" *ngIf="submitted && !medicament.quantity">La fecha de fabricación es requerida.</small>
+    </div>
+    <div class="field">
+      <label for="manufacturingDate">Fecha de vencimiento</label>
+      <input type="text" pInputText id="manufacturingDate" [(ngModel)]="medicament.expirationDate" required autofocus />
+      <small class="p-error" *ngIf="submitted && !medicament.quantity">La fecha de vencimiento es requerida.</small>
+  </div>
+    <div class="field">
+      <label for="quantity">Cantidad</label>
+      <input type="text" pInputText id="name" [(ngModel)]="medicament.quantity" required autofocus />
+      <small class="p-error" *ngIf="submitted && !medicament.quantity">La cantidad es requerida.</small>
+    </div>
+    <div class="field">
+      <label for="quantity">Precio unitario</label>
+      <input type="text" pInputText id="name" [(ngModel)]="medicament.unitPrice" required autofocus />
+      <small class="p-error" *ngIf="submitted && !medicament.unitPrice">El precio unitario es requerida.</small>
+    </div>
+      
+
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+      <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+      <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="updateOrCreateMedicament(medicament)"></button>
+  </ng-template>
+</p-dialog>
+
